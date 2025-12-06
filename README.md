@@ -1,5 +1,6 @@
-Flip a Coin Game
-In this tutorial ,  I am gonna showing to you how to code simple flip a coin game! this heads and tails game have very simple code and it's best js tutorial for beginners❗️
+Multi Step Form
+In this tutorial,  I am gonna showing to you how to code a simple multistep form with javascript. you can use this form in your site to get user data❗️
+this form also is responsive!
 
 # Screenshot
 Here we have project screenshot :

@@ -1,42 +1,29 @@
-let heads = 0;
-let tails = 0;
-let coin = document.querySelector(".coin");
-let flipBtn = document.querySelector("#flip-button");
-let resetBtn = document.querySelector("#reset-button");
+var form1 = document.getElementById("form1");
+var form2 = document.getElementById("form2");
+var form3 = document.getElementById("form3");
+var next1 = document.getElementById("next1");
+var next2 = document.getElementById("next2");
+var back1 = document.getElementById("back1");
+var back2 = document.getElementById("back2");
+var progress = document.getElementById("progress");
 
-flipBtn.addEventListener("click", () => {
-    let i = Math.floor(Math.random() * 2);
-    coin.style.animation = "none";
-    if (i) {
-        setTimeout(function () {
-            coin.style.animation = "spin-heads 3s forwards";
-        }, 100);
-        heads++;
-    } else {
-        setTimeout(function () {
-            coin.style.animation = "spin-tails 3s forwards";
-        }, 100);
-        tails++;
-    }
-    setTimeout(updateStats, 3000);
-    disableButton();
-});
-
-function updateStats() {
-    document.querySelector("#heads-count").textContent = `Heads: ${heads}`;
-    document.querySelector("#tails-count").textContent = `Tails: ${tails}`;
+next1.onclick = function () {
+    form1.style.left = "-450px";
+    form2.style.left = "40px";
+    progress.style.width = "240px";
 }
-
-function disableButton() {
-    flipBtn.disabled = true;
-    setTimeout(function () {
-        flipBtn.disabled = false;
-    }, 3000);
+back1.onclick = function () {
+    form1.style.left = "40px";
+    form2.style.left = "450px";
+    progress.style.width = "120px";
 }
-
-resetBtn.addEventListener("click", () => {
-    coin.style.animation = "none";
-    heads = 0;
-    tails = 0;
-    updateStats();
-})
+next2.onclick = function () {
+    form2.style.left = "-450px";
+    form3.style.left = "40px";
+    progress.style.width = "360px";
+}
+back2.onclick = function () {
+    form2.style.left = "40px";
+    form3.style.left = "450px";
+    progress.style.width = "240px";
+}
