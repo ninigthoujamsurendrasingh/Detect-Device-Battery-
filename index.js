@@ -1,41 +1,42 @@
-initBattery();
+let heads = 0;
+let tails = 0;
+let coin = document.querySelector(".coin");
+let flipBtn = document.querySelector("#flip-button");
+let resetBtn = document.querySelector("#reset-button");
 
-function initBattery() {
-    const batteryLiquid = document.querySelector(".Bliquid");
-    const batteryStatus = document.querySelector(".Bstatus");
-    const Bpercentage = document.querySelector(".Bpercentage");
-    navigator.getBattery().then((batt) => {
-        updateBattery = () => {
-            let level = Math.floor(batt.level * 100);
-            Bpercentage.innerHTML = level + "%";
-            batteryLiquid.style.height = `${parseInt(batt.level * 100)}%`;
-            if (level == 100) {
-                batteryStatus.innerHTML = `Battery Full <i class="ri-battery-2-fill green-color"></i>`;
-                batteryLiquid.style.height = "103%";
-            } else if (level <= 20 & !batt.charging) {
-                batteryStatus.innerHTML = `Low Charge <i class="ri-plug-line animated-red animated-red"></i>`;
-            } else if (batt.charging) {
-                batteryStatus.innerHTML = `Charging ... <i class="ri-flashlight-line animated-green"></i>`;
-            } else {
-                batteryStatus.innerHTML = "";
-            }
+flipBtn.addEventListener("click", () => {
+    let i = Math.floor(Math.random() * 2);
+    coin.style.animation = "none";
+    if (i) {
+        setTimeout(function () {
+            coin.style.animation = "spin-heads 3s forwards";
+        }, 100);
+        heads++;
+    } else {
+        setTimeout(function () {
+            coin.style.animation = "spin-tails 3s forwards";
+        }, 100);
+        tails++;
+    }
+    setTimeout(updateStats, 3000);
+    disableButton();
+});
 
-            if (level <= 20) {
-                batteryLiquid.classList.add("gradient-color-red");
-                batteryLiquid.classList.remove("gradient-color-green", "gradient-color-orange", "gradient-color-yellow");
-            } else if (level <= 48) {
-                batteryLiquid.classList.add("gradient-color-orange");
-                batteryLiquid.classList.remove("gradient-color-green", "gradient-color-red", "gradient-color-yellow");
-            } else if (level <= 80) {
-                batteryLiquid.classList.add("gradient-color-yellow");
-                batteryLiquid.classList.remove("gradient-color-green", "gradient-color-orange", "gradient-color-red");
-            } else {
-                batteryLiquid.classList.add("gradient-color-green");
-                batteryLiquid.classList.remove("gradient-color-red", "gradient-color-orange", "gradient-color-yellow");
-            }
-        }
-        updateBattery();
-        batt.addEventListener("chargingchange", () => { updateBattery() });
-        batt.addEventListener("levelchange", () => { updateBattery });
-    })
+function updateStats() {
+    document.querySelector("#heads-count").textContent = `Heads: ${heads}`;
+    document.querySelector("#tails-count").textContent = `Tails: ${tails}`;
 }
+
+function disableButton() {
+    flipBtn.disabled = true;
+    setTimeout(function () {
+        flipBtn.disabled = false;
+    }, 3000);
+}
+
+resetBtn.addEventListener("click", () => {
+    coin.style.animation = "none";
+    heads = 0;
+    tails = 0;
+    updateStats();
+})
